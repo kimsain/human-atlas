@@ -1,4 +1,5 @@
-export type SystemId = 'skeletal'|'muscular'|'arterial'|'venous'|'nervous'|'digestive'|'respiratory'|'urinary'|'reproductive'|'lymphatic'|'endocrine'|'integumentary'|'connective'|'sensory'|'cardiac';
+export type SystemId = 'skeletal'|'muscular'|'arterial'|'venous'|'nervous'|'digestive'|'respiratory'|'urinary'|'reproductive'|'lymphatic'|'endocrine'|'integumentary'|'connective'|'sensory'|'cardiac'|'pregnancy';
+export type AnatomySex = 'male'|'female';
 export const SYSTEMS: {id:SystemId;name:string;color:string;description:string}[] = [
  {id:'skeletal',name:'골격계',color:'#e2d9ba',description:'뼈는 몸을 지지하는 골격을 이루고 장기를 보호하며 근육이 부착되는 자리를 제공합니다. 뼈의 내부 조직은 무기질을 저장하고 혈구를 생성합니다.'},
  {id:'muscular',name:'근육계',color:'#a85b50',description:'골격근은 부착 부위를 당겨 움직임을 만듭니다. 힘줄과 함께 관절을 움직이고 자세를 안정시키며 열을 생성합니다.'},
@@ -12,17 +13,21 @@ export const SYSTEMS: {id:SystemId;name:string;color:string;description:string}[
  {id:'urinary',name:'비뇨계',color:'#b47961',description:'신장은 혈액을 여과하고 체액, 전해질, 산-염기 균형을 조절합니다. 소변은 요관을 거쳐 방광에 저장된 뒤 요도를 통해 배출됩니다.'},
  {id:'lymphatic',name:'림프계',color:'#879f7c',description:'림프관은 조직에 남은 과도한 체액을 순환계로 되돌립니다. 림프절과 다른 림프기관은 면역 감시와 면역 반응에 관여합니다.'},
  {id:'endocrine',name:'내분비계',color:'#c5a09a',description:'내분비기관은 호르몬을 혈액으로 분비해 대사, 성장, 스트레스 반응, 생식 등의 과정을 조절합니다.'},
- {id:'reproductive',name:'생식계',color:'#bda098',description:'여기에 표시된 남성 생식기관은 정자의 생성, 성숙, 운반과 성호르몬 생성에 관여합니다.'},
+ {id:'reproductive',name:'생식계',color:'#bda098',description:'생식기관은 생식세포와 성호르몬의 생성, 성숙, 운반에 관여합니다. 모델에 따라 표시되는 구조가 다릅니다.'},
  {id:'integumentary',name:'신체 표면',color:'#ba9b7d',description:'신체 표면은 외부 해부학적 기준을 제공합니다. 외피계는 보호 장벽을 형성하며 감각과 체온 조절에 관여합니다.'},
+ {id:'pregnancy',name:'임신 참고 구조',color:'#b88380',description:'태반과 탯줄은 임신 중 모체와 태아 사이의 물질 교환에 관여합니다. 여성 기준 모델에서 기본 해부 구조와 분리해 제공합니다.'},
  {id:'connective',name:'결합조직',color:'#aec3bb',description:'연골, 인대와 그 밖의 결합조직은 구조물을 지지하고 연결하며 서로 구분합니다. 관절을 안정시키고 기계적 하중을 분산하는 역할도 합니다.'},
 ];
 export interface Part {id:string;name:string;conceptId:string;system:SystemId;chunk:number;positions:number;normals:number;indices:number;vertexCount:number;indexCount:number;bounds:[number[],number[]]}
 export interface Concept {id:string;name:string;elements:string[]}
-export interface Atlas {version:string;sex?:'male';source?:string;scope?:string;parts:Part[];concepts:Concept[];chunks:{url:string;bytes:number;gzip?:string;gzipBytes?:number}[];triangles:number}
+export interface Atlas {version:string;sex?:AnatomySex;source?:string;scope?:string;parts:Part[];concepts:Concept[];chunks:{url:string;bytes:number;gzip?:string;gzipBytes?:number}[];triangles:number}
 export type View = 'three-quarter'|'front'|'back'|'side';
 export interface SceneState {inspectorOpen?:boolean;explode:number;visible:SystemId[];selected:string[];isolate:boolean;view:View;rotate:boolean;reset:number}
 export const DEFAULT_VISIBLE:SystemId[] = ['cardiac','sensory','skeletal','muscular','arterial','venous','nervous','respiratory','digestive','urinary','lymphatic','endocrine','reproductive','connective'];
 export const EXPLANATIONS:Record<string,string> = {
+ 'uterus':'골반 안에 있는 속이 빈 근육성 장기입니다. 안쪽 벽은 월경 주기에 따라 변하며 임신 중 착상과 발달을 지지할 수 있습니다.',
+ 'vagina':'자궁경부와 몸 바깥을 연결하는 근육성 통로입니다. 월경혈이 지나가며 출산 통로의 일부를 이룹니다.',
+ 'ovary':'발달 중인 난모세포를 포함하고 에스트로겐과 프로게스테론 등의 호르몬을 만드는 장기입니다.',
  'heart':'가슴 안에 있는 근육성 펌프입니다. 오른쪽은 혈액을 폐로 보내고, 왼쪽은 혈액을 체순환으로 보냅니다.',
  'liver':'횡격막 오른쪽 아래에 있는 큰 장기입니다. 흡수된 영양소를 처리하고 담즙을 만들며, 혈액으로 운반되는 여러 단백질을 합성합니다.',
  'brain':'신경계의 중추 기관입니다. 서로 연결된 영역들이 지각, 운동, 기억, 언어와 신체 기능 조절에 관여합니다.',

@@ -1,12 +1,13 @@
 # Human Atlas
 
-React, Three.js, shadcn/ui로 만든 인터랙티브 3D 해부학 탐색기입니다. BodyParts3D 성인 남성 기준 모델을 **개별 선택이 가능한 메시 2,234개**로 분리해 살펴보고, **15개 해부학 계통**과 **명명된 개념 3,432개**를 검색할 수 있습니다.
+React, Three.js, shadcn/ui로 만든 인터랙티브 3D 해부학 탐색기입니다. BodyParts3D 성인 남성 기준 모델과 Human Reference Atlas 여성 기준 모델을 전환해 살펴보고, 각 모델의 개별 구조와 해부학 계통을 검색할 수 있습니다.
 
 **[라이브 데모 보기](https://human-atlas-phi.vercel.app)**
 
 ## 주요 기능
 
 - 인체 모델을 직접 회전·확대하고 해부학 구조를 선택합니다.
+- 남성 기준과 여성 기준 모델을 화면에서 전환합니다.
 - 개별 계통을 켜거나 끄고 골격 및 장기 프리셋을 사용합니다.
 - 조립된 해부 구조를 펼쳐서 표시된 모든 조각을 한눈에 살펴봅니다.
 - 영문 해부학 명칭과 원본 식별자를 검색합니다.
@@ -29,6 +30,7 @@ http://localhost:3016 을 엽니다. 정적 사이트를 빌드하려면 `npm ru
 ```sh
 npm run check
 node scripts/validate-atlas.mjs
+node scripts/validate-atlas.mjs atlas-female.json
 node scripts/validate-interactions.mjs
 npm run build
 ```
@@ -37,9 +39,9 @@ npm run build
 
 ## 해부학 데이터
 
-현재 뷰어는 CC BY 4.0 라이선스의 성인 남성 기준 해부학 데이터인 **BodyParts3D 4.0**을 사용합니다. 이 데이터는 인체의 모든 구조나 변이를 나타내지 않습니다. 개별 원본 메시는 서로 구분되며, 하나의 명명된 개념에 여러 메시가 포함될 수 있습니다. 설명에서는 일반적인 계통 정보와 개별 장기 설명을 구분합니다.
+뷰어는 두 개의 독립적인 참고 자료를 제공합니다. 남성 기준은 CC BY 4.0 라이선스의 성인 남성 해부학 데이터인 **BodyParts3D 4.0**이며, 여성 기준은 CC BY 4.0 라이선스의 **Human Reference Atlas 3D Reference Organ Set for Female v1.5**입니다. 여성 모델에는 여성 생식기관과 임신 참고 구조가 포함되며, 골격과 근육은 일부만 포함되어 있습니다.
 
-브라우저 성능을 위해 지오메트리를 단순화했지만 모든 원본 메시는 유지했습니다. 패키지 모델에는 삼각형 2,288,268개가 포함되며 약 33MB의 압축 지오메트리를 내려받습니다. 전체 저작자 표시, 원본 링크와 수정 내역은 [ATTRIBUTION.md](public/ATTRIBUTION.md)에서 확인할 수 있습니다.
+브라우저 성능을 위해 지오메트리를 단순화했지만 모든 원본 메시는 유지했습니다. 남성 모델에는 삼각형 2,288,268개가 포함되며, 여성 모델에는 삼각형 1,810,038개가 포함됩니다. 선택한 모델의 압축 지오메트리만 내려받습니다. 전체 저작자 표시, 원본 링크와 수정 내역은 [ATTRIBUTION.md](public/ATTRIBUTION.md)에서 확인할 수 있습니다.
 
 이 프로젝트는 교육용 탐색기이며 진단이나 수술을 위한 도구가 아닙니다.
 
@@ -51,7 +53,7 @@ npm run build
 
 ## 지오메트리 다시 생성하기
 
-저장소에는 브라우저에서 바로 사용할 수 있는 지오메트리가 포함되어 있습니다. 다시 생성하는 과정은 선택 사항입니다. 공식 BodyParts3D OBJ 압축 파일과 영문 메타데이터 표를 구한 뒤, 결합한 개념 및 표시 계통 매핑을 준비하고 `scripts/convert-anatomy.py`, `node scripts/optimize-anatomy.mjs`, `node scripts/compress-models.mjs` 순서로 실행합니다. 단순화 과정에서는 구조별 상대 오차 한도를 0.2%로 적용합니다.
+저장소에는 브라우저에서 바로 사용할 수 있는 지오메트리가 포함되어 있습니다. 다시 생성하는 과정은 선택 사항입니다. 공식 BodyParts3D OBJ 압축 파일과 영문 메타데이터 표를 구한 뒤, 결합한 개념 및 표시 계통 매핑을 준비하고 `scripts/convert-anatomy.py`, `node scripts/optimize-anatomy.mjs`, `node scripts/compress-models.mjs` 순서로 실행합니다. 여성 기준 모델은 `scripts/convert-female.py`에 공식 HRA GLB와 메타데이터 파일을 전달해 같은 방식으로 생성합니다. 단순화 과정에서는 구조별 상대 오차 한도 0.2%를 적용합니다.
 
 ## 배포
 
