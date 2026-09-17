@@ -1,30 +1,30 @@
 # Human Atlas
 
-An interactive 3D anatomy explorer built with React, Three.js, and shadcn/ui. Take the BodyParts3D adult male reference apart into **2,234 individually selectable meshes**, explore **15 anatomical systems**, and search **3,432 named concepts**.
+React, Three.js, shadcn/ui로 만든 인터랙티브 3D 해부학 탐색기입니다. BodyParts3D 성인 남성 기준 모델을 **개별 선택이 가능한 메시 2,234개**로 분리해 살펴보고, **15개 해부학 계통**과 **명명된 개념 3,432개**를 검색할 수 있습니다.
 
-**[Explore the live demo](https://human-atlas-seven.vercel.app)**
+**[라이브 데모 보기](https://human-atlas-phi.vercel.app)**
 
-## Explore
+## 주요 기능
 
-- Orbit, zoom, and select structures directly on the body.
-- Toggle individual systems or use skeleton and organ presets.
-- Move from assembled anatomy to a spaced inventory of every visible piece.
-- Search anatomical names and source identifiers.
-- Isolate a selected structure and read its details.
-- Use compact controls and detail panels on mobile.
+- 인체 모델을 직접 회전·확대하고 해부학 구조를 선택합니다.
+- 개별 계통을 켜거나 끄고 골격 및 장기 프리셋을 사용합니다.
+- 조립된 해부 구조를 펼쳐서 표시된 모든 조각을 한눈에 살펴봅니다.
+- 영문 해부학 명칭과 원본 식별자를 검색합니다.
+- 선택한 구조만 분리해 상세 정보를 확인합니다.
+- 모바일에서는 간결한 조작 도구와 상세 패널을 사용합니다.
 
-## Run locally
+## 로컬 실행
 
-Requires Node.js 22.13 or newer. No API keys or accounts are needed.
+Node.js 22.13 이상이 필요합니다. API 키나 계정은 필요하지 않습니다.
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open http://localhost:3016. To build the static site, run `npm run build`; the output is in `dist/`.
+http://localhost:3016 을 엽니다. 정적 사이트를 빌드하려면 `npm run build`를 실행합니다. 결과물은 `dist/`에 생성됩니다.
 
-## Validate
+## 검증
 
 ```sh
 npm run check
@@ -33,32 +33,32 @@ node scripts/validate-interactions.mjs
 npm run build
 ```
 
-Validation covers mesh buffers, names and concept membership, nonoverlapping exploded layouts at desktop and mobile aspect ratios, search and inspection contracts, and tap-versus-drag handling. Browser interaction checks have exercised selection, system controls, search, isolation, rotation, and 390×844, 320×568, and 844×390 layouts. Phone controls stay clear of the exploded inventory, and isolated structures fit the space above or beside the detail panel. Physical-device performance and real multitouch hardware have not been tested.
+검증 범위에는 메시 버퍼, 명칭과 개념의 소속 관계, 데스크톱 및 모바일 화면 비율에서 펼친 레이아웃의 겹침 여부, 검색 및 상세 보기 규약, 탭과 드래그 구분이 포함됩니다. 브라우저 상호작용 검증에서는 구조 선택, 계통 제어, 검색, 선택 구조 분리, 회전과 390×844, 320×568, 844×390 레이아웃을 확인했습니다. 휴대전화 조작 도구는 펼친 구조 목록을 가리지 않으며, 분리한 구조는 상세 패널의 위쪽 또는 옆쪽 공간에 맞춰 표시됩니다. 실제 기기의 성능과 실제 멀티터치 하드웨어는 검증하지 않았습니다.
 
-## Anatomy data
+## 해부학 데이터
 
-The current viewer uses **BodyParts3D 4.0**, an adult male reference anatomy, licensed **CC BY 4.0**. It does not represent every human structure or variation. Individual source meshes are distinct from named concepts, which may group multiple meshes. Descriptions distinguish general system context from individual organ explanations.
+현재 뷰어는 CC BY 4.0 라이선스의 성인 남성 기준 해부학 데이터인 **BodyParts3D 4.0**을 사용합니다. 이 데이터는 인체의 모든 구조나 변이를 나타내지 않습니다. 개별 원본 메시는 서로 구분되며, 하나의 명명된 개념에 여러 메시가 포함될 수 있습니다. 설명에서는 일반적인 계통 정보와 개별 장기 설명을 구분합니다.
 
-Geometry is simplified for browser performance while retaining every source mesh. The packaged model contains 2,288,268 triangles and downloads approximately 33 MB of compressed geometry. Full credits, source links, and adaptation details are in [ATTRIBUTION.md](public/ATTRIBUTION.md).
+브라우저 성능을 위해 지오메트리를 단순화했지만 모든 원본 메시는 유지했습니다. 패키지 모델에는 삼각형 2,288,268개가 포함되며 약 33MB의 압축 지오메트리를 내려받습니다. 전체 저작자 표시, 원본 링크와 수정 내역은 [ATTRIBUTION.md](public/ATTRIBUTION.md)에서 확인할 수 있습니다.
 
-This is an educational explorer, not a diagnostic or surgical tool.
+이 프로젝트는 교육용 탐색기이며 진단이나 수술을 위한 도구가 아닙니다.
 
-## How it works
+## 작동 방식
 
-Geometry is merged into batches. Per-structure GPU textures control translation, visibility, and selection, while component geometry supports accurate picking. Exploded layouts pack only the visible pieces. Rendering updates when the scene changes; orbit controls remain responsive without thousands of separate draw calls.
+지오메트리를 배치 단위로 병합합니다. 구조별 GPU 텍스처로 이동, 표시 여부와 선택 상태를 제어하고, 개별 구성요소의 지오메트리로 정확한 선택을 지원합니다. 펼친 레이아웃에는 표시된 조각만 배치합니다. 장면이 바뀔 때 렌더링을 갱신하므로 수천 개의 별도 드로 콜 없이도 회전 조작이 원활하게 동작합니다.
 
-The optional WebMCP tools expose anatomy search and inspection in compatible browsers. The visible interface works without them.
+선택 사항인 WebMCP 도구는 지원 브라우저에서 해부학 검색과 상세 보기 기능을 제공합니다. 화면 인터페이스는 이 도구 없이도 작동합니다.
 
-## Rebuilding geometry
+## 지오메트리 다시 생성하기
 
-The repository includes browser-ready geometry. Rebuilding it is optional: obtain the official BodyParts3D OBJ archive and English metadata tables, prepare the joined concepts and display-system mappings, run `scripts/convert-anatomy.py`, then `node scripts/optimize-anatomy.mjs` and `node scripts/compress-models.mjs`. Simplification uses a 0.2% relative error limit per structure.
+저장소에는 브라우저에서 바로 사용할 수 있는 지오메트리가 포함되어 있습니다. 다시 생성하는 과정은 선택 사항입니다. 공식 BodyParts3D OBJ 압축 파일과 영문 메타데이터 표를 구한 뒤, 결합한 개념 및 표시 계통 매핑을 준비하고 `scripts/convert-anatomy.py`, `node scripts/optimize-anatomy.mjs`, `node scripts/compress-models.mjs` 순서로 실행합니다. 단순화 과정에서는 구조별 상대 오차 한도를 0.2%로 적용합니다.
 
-## Deploy
+## 배포
 
-Import this repository into Vercel as a Vite project. The included `vercel.json` configures `npm ci`, `npm run build`, and the `dist` output directory. It can also be served by a static host.
+이 저장소를 Vite 프로젝트로 Vercel에 가져옵니다. 포함된 `vercel.json`은 `npm ci`, `npm run build`와 `dist` 출력 디렉터리를 설정합니다. 정적 호스팅 서비스에서도 배포할 수 있습니다.
 
-## License
+## 라이선스
 
-Original application code is released under the [MIT License](LICENSE). **The anatomy data has its own CC BY 4.0 license**; preserve the attribution when redistributing it. Third-party dependencies retain their respective licenses.
+원본 애플리케이션 코드는 [MIT License](LICENSE)로 배포됩니다. **해부학 데이터에는 별도의 CC BY 4.0 라이선스가 적용됩니다.** 데이터를 재배포할 때 저작자 표시를 유지해야 합니다. 제3자 의존성에는 각각의 라이선스가 적용됩니다.
 
-Issues and pull requests are welcome. Please include reproduction steps and browser/device details for interaction problems.
+이슈와 풀 리퀘스트를 환영합니다. 상호작용 문제를 제보할 때 재현 절차와 브라우저 또는 기기 정보를 포함해 주세요.
