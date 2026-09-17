@@ -15,9 +15,11 @@ BodyParts3D, © The Database Center for Life Science, CC Attribution 4.0 Interna
 
 BodyParts3D는 TARO MRI와 해부학 삽화 보정을 바탕으로 만든 성인 남성 기준 해부학 모델입니다. 인체의 가능한 모든 해부학 구조나 변이를 포함한 완전한 모델은 아닙니다. 이 인터페이스는 교육용이며 임상 도구가 아닙니다.
 
-## 여성 기준 모델
+## 과거 에셋
 
-여성 모델은 다음 자료를 바탕으로 합니다. Kristen Browne and Heidi Schlehlein, Human Reference Atlas / HuBMAP, *3D Reference Organ Set for Female v1.5* (2023). CC BY 4.0. 이 뷰어에 맞게 지오메트리를 수정했습니다.
+다음 에셋은 현재 릴리스에 포함되어 있지 않습니다.
+
+이전 저장소 리비전에는 여성 기준 해부학 모델이 포함되어 있었습니다. Kristen Browne and Heidi Schlehlein, Human Reference Atlas / HuBMAP, *3D Reference Organ Set for Female v1.5* (2023). CC BY 4.0. 이 뷰어에 맞게 지오메트리를 수정했습니다.
 
 - 원본 DOI: https://doi.org/10.48539/HBM352.BTSQ.586
 - 데이터세트: https://lod.humanatlas.io/ref-organ/united-female/v1.5
@@ -26,4 +28,4 @@ BodyParts3D는 TARO MRI와 해부학 삽화 보정을 바탕으로 만든 성인
 
 수정 내역: 미터/Y축 상향 원본 좌표를 무대 위로 이동하고, 같은 위치의 정점을 용접한 뒤 원본 법선을 평균화했습니다. 구조별 상대 오차 한도 0.2%로 지오메트리를 단순화하고 법선을 양자화했습니다. 색상과 화면 표시용 계통 분류는 이 인터페이스에 맞게 선별했습니다. 원본 메시 888개를 모두 유지했으며, 원본 노드 1,073개를 개별 또는 복합 개념으로 선택할 수 있었습니다.
 
-이 데이터는 전신 표면과 일부 장기를 포함한 기준 조립 모델이며 여성 생식기 해부 구조를 포함합니다. 골격과 근육은 일부만 포함되어 있습니다. 인체의 모든 구조를 담은 완전한 모델이나 한 개인을 스캔한 데이터가 아닙니다. 태반 및 탯줄 구조 8개는 임신 참고 구조로 분류되며 기본적으로 숨겨져 있습니다.
+이 데이터는 전신 표면과 일부 장기를 포함한 기준 조립 모델이며 여성 생식기 해부 구조를 포함합니다. 골격과 근육은 일부만 포함되어 있습니다. 인체의 모든 구조를 담은 완전한 모델이나 한 개인을 스캔한 데이터가 아닙니다. 태반 및 탯줄 구조 8개는 Pregnancy reference로 분류되며 기본적으로 숨겨져 있었습니다.
